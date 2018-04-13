@@ -759,7 +759,13 @@ public final class JIComServer extends Stub {
 		{
 			address = ipAddr + address.substring(index);
 		}
-
+		
+		if (JISystem.isForceSameAddress()) {
+			index = address.indexOf("[");
+			String port = address.substring(index+1, address.length()-1);
+			address = targetAddress+"["+port+"]";
+		}
+		
 		//and currently only TCPIP is supported.
 		setAddress("ncacn_ip_tcp:" + address);
 		remunknownIPID = serverActivation.getIPID();
